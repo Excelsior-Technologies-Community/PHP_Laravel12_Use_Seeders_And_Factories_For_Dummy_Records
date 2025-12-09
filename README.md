@@ -1,4 +1,4 @@
-# PHP_Laravel12_Use_Seeders_&_Factories_For_Dummy_Records
+# PHP_Laravel12_Use_Seeders_And_Factories_For_Dummy_Records
 
 A Laravel 12 project that demonstrates how to generate **dummy data** using **Factories and Seeders**.  
 Includes Products, Tags, Multiple Images, Soft Deletes, and Pivot Table relationships.
