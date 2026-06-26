@@ -26,8 +26,8 @@
                         <p class="card-text">{{ Str::limit($post->excerpt, 150) }}</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="post-meta">
-                                <img src="{{ $post->user->avatar }}" alt="{{ $post->user->name }}" 
-                                     class="rounded-circle me-2" width="30" height="30">
+                                <img src="{{ $post->user->avatar }}" alt="{{ $post->user->name }}"
+                                    class="rounded-circle me-2" width="30" height="30">
                                 By {{ $post->user->name }}
                                 <span class="mx-2">•</span>
                                 {{ $post->created_at->format('M d, Y') }}
@@ -46,9 +46,13 @@
         </div>
         @endforeach
 
-        <div class="d-flex justify-content-center">
-            {{ $posts->links() }}
+        @if ($posts->hasPages())
+        <div class="card border-0 shadow-sm mt-4">
+            <div class="card-body d-flex justify-content-center">
+                {{ $posts->links() }}
+            </div>
         </div>
+        @endif
     </div>
 
     <div class="col-md-4">
