@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory; // Add this
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Comment extends Model
 {
-    use HasFactory, SoftDeletes; // Add HasFactory
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'post_id',
@@ -47,5 +47,10 @@ class Comment extends Model
     public function scopeApproved($query)
     {
         return $query->where('is_approved', true);
+    }
+
+    public function scopePending($query)
+    {
+        return $query->where('is_approved', false);
     }
 }

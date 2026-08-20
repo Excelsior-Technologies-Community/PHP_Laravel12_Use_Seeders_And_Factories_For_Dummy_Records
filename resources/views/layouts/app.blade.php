@@ -93,6 +93,9 @@
             border-color: #555;
         }
     </style>
+
+    @stack('styles')
+    
 </head>
 
 <body>
