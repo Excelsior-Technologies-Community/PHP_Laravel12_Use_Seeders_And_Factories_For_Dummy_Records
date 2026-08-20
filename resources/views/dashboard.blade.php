@@ -3,11 +3,20 @@
 @section('title', 'Dashboard')
 
 @section('content')
+
 <div class="container-fluid">
-    <h1 class="display-4 mb-4">Dashboard</h1>
+
+    <h1 class="display-4 mb-4">
+        Dashboard
+    </h1>
+
+
+    {{-- Global Search --}}
 
     <div class="card mb-4 shadow-sm search-card">
+
         <div class="card-body">
+
             <div class="search-wrapper">
 
                 <input
@@ -16,235 +25,470 @@
                     class="form-control form-control-lg"
                     placeholder="Search posts, users, categories...">
 
-                <div id="searchResult"
+
+                <div
+                    id="searchResult"
                     class="list-group search-dropdown">
                 </div>
 
             </div>
+
         </div>
+
     </div>
 
-    <!-- Stats Cards -->
+
+    {{-- Statistics --}}
+
     <div class="row mb-4">
+
         <div class="col-md-3">
+
             <div class="card bg-primary text-white">
+
                 <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 class="card-title">Total Posts</h6>
-                            <h2 class="mb-0">{{ $stats['total_posts'] }}</h2>
-                        </div>
-                        <i class="fas fa-newspaper fa-2x opacity-50"></i>
-                    </div>
+
+                    <h6>
+                        Total Posts
+                    </h6>
+
+                    <h2>
+                        {{ $stats['total_posts'] }}
+                    </h2>
+
                 </div>
+
             </div>
+
         </div>
 
+
         <div class="col-md-3">
+
             <div class="card bg-success text-white">
+
                 <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 class="card-title">Published Posts</h6>
-                            <h2 class="mb-0">{{ $stats['published_posts'] }}</h2>
-                        </div>
-                        <i class="fas fa-check-circle fa-2x opacity-50"></i>
-                    </div>
+
+                    <h6>
+                        Published Posts
+                    </h6>
+
+                    <h2>
+                        {{ $stats['published_posts'] }}
+                    </h2>
+
                 </div>
+
             </div>
+
         </div>
 
-        <div class="col-md-3">
-            <div class="card bg-info text-white">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 class="card-title">Total Categories</h6>
-                            <h2 class="mb-0">{{ $stats['total_categories'] }}</h2>
-                        </div>
-                        <i class="fas fa-tags fa-2x opacity-50"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div class="col-md-3">
+
             <div class="card bg-warning text-dark">
+
                 <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 class="card-title">Total Users</h6>
-                            <h2 class="mb-0">{{ $stats['total_users'] }}</h2>
-                        </div>
-                        <i class="fas fa-users fa-2x opacity-50"></i>
-                    </div>
+
+                    <h6>
+                        Draft Posts
+                    </h6>
+
+                    <h2>
+                        {{ $stats['draft_posts'] }}
+                    </h2>
+
                 </div>
+
             </div>
+
         </div>
+
+
+        <div class="col-md-3">
+
+            <div class="card bg-info text-white">
+
+                <div class="card-body">
+
+                    <h6>
+                        Total Views
+                    </h6>
+
+                    <h2>
+                        {{ number_format($stats['total_views']) }}
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
-    <!-- Recent Posts -->
-    <div class="row">
-        <div class="col-md-8">
+
+    {{-- Second Stats Row --}}
+
+    <div class="row mb-4">
+
+        <div class="col-md-3">
+
             <div class="card">
-                <div class="card-header">
-                    <h5 class="mb-0">Recent Posts</h5>
-                </div>
+
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Author</th>
-                                    <th>Status</th>
-                                    <th>Views</th>
-                                    <th>Created</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($stats['recent_posts'] as $post)
-                                <tr>
-                                    <td>
-                                        <a href="/post/{{ $post->slug }}" class="text-decoration-none">
-                                            {{ Str::limit($post->title, 40) }}
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <img src="{{ $post->user->avatar }}" alt="{{ $post->user->name }}"
-                                                class="rounded-circle me-2" width="25" height="25">
-                                            {{ $post->user->name }}
-                                        </div>
-                                    </td>
-                                    <td>
-                                        @if($post->status == 'published')
-                                        <span class="badge bg-success">Published</span>
-                                        @elseif($post->status == 'draft')
-                                        <span class="badge bg-warning">Draft</span>
-                                        @else
-                                        <span class="badge bg-secondary">{{ ucfirst($post->status) }}</span>
-                                        @endif
-                                    </td>
-                                    <td>{{ $post->views }}</td>
-                                    <td>{{ $post->created_at->format('M d, Y') }}</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+
+                    <h6>
+                        Categories
+                    </h6>
+
+                    <h3>
+                        {{ $stats['total_categories'] }}
+                    </h3>
+
                 </div>
+
             </div>
+
         </div>
+
+
+        <div class="col-md-3">
+
+            <div class="card">
+
+                <div class="card-body">
+
+                    <h6>
+                        Users
+                    </h6>
+
+                    <h3>
+                        {{ $stats['total_users'] }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-3">
+
+            <div class="card">
+
+                <div class="card-body">
+
+                    <h6>
+                        Approved Comments
+                    </h6>
+
+                    <h3>
+                        {{ $stats['approved_comments'] }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-3">
+
+            <div class="card">
+
+                <div class="card-body">
+
+                    <h6>
+                        Pending Comments
+                    </h6>
+
+                    <h3>
+                        {{ $stats['pending_comments'] }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="row">
+
+        {{-- Recent Posts --}}
+
+        <div class="col-md-8">
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <h5 class="mb-0">
+                        Recent Posts
+                    </h5>
+
+                </div>
+
+
+                <div class="card-body">
+
+                    <div class="table-responsive">
+
+                        <table class="table table-hover">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        Title
+                                    </th>
+
+                                    <th>
+                                        Author
+                                    </th>
+
+                                    <th>
+                                        Status
+                                    </th>
+
+                                    <th>
+                                        Views
+                                    </th>
+
+                                    <th>
+                                        Reading
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody>
+
+                                @foreach($stats['recent_posts'] as $post)
+
+                                <tr>
+
+                                    <td>
+
+                                        <a
+                                            href="/post/{{ $post->slug }}"
+                                            class="text-decoration-none">
+
+                                            {{ Str::limit($post->title, 35) }}
+
+                                        </a>
+
+                                    </td>
+
+
+                                    <td>
+                                        {{ $post->user->name }}
+                                    </td>
+
+
+                                    <td>
+
+                                        @if($post->status === 'published')
+
+                                        <span class="badge bg-success">
+                                            Published
+                                        </span>
+
+                                        @else
+
+                                        <span class="badge bg-warning">
+                                            Draft
+                                        </span>
+
+                                        @endif
+
+                                    </td>
+
+
+                                    <td>
+                                        {{ $post->views }}
+                                    </td>
+
+
+                                    <td>
+                                        {{ $post->reading_time }} min
+                                    </td>
+
+                                </tr>
+
+                                @endforeach
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        {{-- Trending Posts --}}
 
         <div class="col-md-4">
+
             <div class="card mb-4">
-                <div class="card-header">
-                    <h5 class="mb-0">Quick Stats</h5>
-                </div>
-                <div class="card-body">
-                    <ul class="list-unstyled mb-0">
-                        <li class="mb-3">
-                            <strong>Total Comments:</strong> {{ $stats['total_comments'] }}
-                        </li>
-                        <li class="mb-3">
-                            <strong>Approved Comments:</strong>
-                            {{ \App\Models\Comment::where('is_approved', true)->count() }}
-                        </li>
-                        <li class="mb-3">
-                            <strong>Pending Comments:</strong>
-                            {{ \App\Models\Comment::where('is_approved', false)->count() }}
-                        </li>
-                        <li>
-                            <strong>Today's Posts:</strong>
-                            {{ \App\Models\Post::whereDate('created_at', today())->count() }}
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="card mt-4">
 
                 <div class="card-header">
+
                     <h5 class="mb-0">
-                        <i class="fas fa-fire text-danger"></i>
-                        Most Viewed Posts
+                        🔥 Trending Posts
                     </h5>
+
                 </div>
 
 
                 <div class="card-body">
 
-
-                    @if($popularPosts->count() > 0)
-
-                    @foreach($popularPosts as $popular)
+                    @forelse($popularPosts as $popular)
 
                     <div class="mb-3">
 
-                        <a href="/post/{{ $popular->slug }}"
+                        <a
+                            href="/post/{{ $popular->slug }}"
                             class="text-decoration-none">
 
-                            {{ Str::limit($popular->title,40) }}
+                            {{ Str::limit($popular->title, 45) }}
 
                         </a>
 
+
                         <br>
 
+
                         <small class="text-muted">
+
                             👁 {{ $popular->views }} views
+
+                        </small>
+
+                    </div>
+
+                    @empty
+
+                    <p class="text-muted">
+                        No popular posts.
+                    </p>
+
+                    @endforelse
+
+                </div>
+
+            </div>
+
+
+            {{-- Most Commented --}}
+
+            <div class="card mb-4">
+
+                <div class="card-header">
+
+                    <h5 class="mb-0">
+                        💬 Most Commented
+                    </h5>
+
+                </div>
+
+
+                <div class="card-body">
+
+                    @foreach($mostCommentedPosts as $post)
+
+                    <div class="mb-3">
+
+                        <a
+                            href="/post/{{ $post->slug }}"
+                            class="text-decoration-none">
+
+                            {{ Str::limit($post->title, 40) }}
+
+                        </a>
+
+
+                        <br>
+
+
+                        <small class="text-muted">
+
+                            {{ $post->comments_count }}
+                            approved comments
+
                         </small>
 
                     </div>
 
                     @endforeach
 
-                    @else
-
-                    <p class="text-muted mb-0">
-                        No popular posts available
-                    </p>
-
-                    @endif
-
                 </div>
 
             </div>
 
+
+            {{-- Popular Categories --}}
 
             <div class="card">
+
                 <div class="card-header">
-                    <h5 class="mb-0">System Information</h5>
+
+                    <h5 class="mb-0">
+                        📂 Popular Categories
+                    </h5>
+
                 </div>
+
+
                 <div class="card-body">
-                    <ul class="list-unstyled mb-0">
-                        <li class="mb-2"><strong>PHP Version:</strong> {{ PHP_VERSION }}</li>
-                        <li class="mb-2"><strong>Laravel Version:</strong> {{ app()->version() }}</li>
-                        <li class="mb-2"><strong>Database:</strong> {{ config('database.default') }}</li>
-                        <li><strong>Environment:</strong> {{ app()->environment() }}</li>
-                    </ul>
+
+                    @foreach($popularCategories as $category)
+
+                    <div class="d-flex justify-content-between mb-2">
+
+                        <span>
+                            {{ $category->name }}
+                        </span>
+
+                        <span class="badge bg-primary">
+
+                            {{ $category->posts_count }}
+
+                        </span>
+
+                    </div>
+
+                    @endforeach
+
                 </div>
+
             </div>
+
         </div>
+
     </div>
+
 </div>
+
 @endsection
 
+
 @push('styles')
+
 <style>
-    .card {
-        transition: transform 0.2s;
-    }
-
-    .card:hover {
-        transform: translateY(-2px);
-    }
-
-    .table th {
-        border-top: none;
-        font-weight: 600;
-    }
-
     .search-wrapper {
         position: relative;
     }
@@ -254,96 +498,87 @@
         top: 100%;
         left: 0;
         right: 0;
-
-        background: white;
-
         max-height: 300px;
         overflow-y: auto;
-
         z-index: 99999;
-
-        border-radius: 8px;
-
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-
-        margin-top: 5px;
-    }
-
-    .search-dropdown:empty {
-        display: none;
-    }
-
-    .search-dropdown a {
-        cursor: pointer;
-    }
-
-    .search-card {
-        position: relative;
-        z-index: 1000;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, .15);
     }
 </style>
+
 @endpush
+
 
 @push('scripts')
 
 <script>
-    let search = document.getElementById('globalSearch');
-    let result = document.getElementById('searchResult');
+    const search =
+        document.getElementById('globalSearch');
+
+    const result =
+        document.getElementById('searchResult');
 
 
     search.addEventListener('keyup', function() {
 
-        let value = this.value;
+        const value = this.value.trim();
 
 
         if (value.length < 2) {
-            result.innerHTML = "";
+
+            result.innerHTML = '';
+
             return;
+
         }
 
 
-        fetch('/global-search?search=' + value)
+        fetch(
+                '/global-search?search=' +
+                encodeURIComponent(value)
+            )
 
             .then(response => response.json())
 
             .then(data => {
 
+                result.innerHTML = '';
 
-                result.innerHTML = "";
 
+                if (data.length === 0) {
 
-                if (data.length == 0) {
-                    result.innerHTML =
-                        `
-            <div class="list-group-item">
-                No result found
-            </div>
+                    result.innerHTML = `
+                <div class="list-group-item">
+                    No result found
+                </div>
             `;
-                    return;
-                }
 
+                    return;
+
+                }
 
 
                 data.forEach(item => {
 
+                    result.innerHTML += `
 
-                    result.innerHTML +=
-                        `
-            <a href="${item.url}" 
-               class="list-group-item list-group-item-action">
+                <a href="${item.url}"
+                   class="list-group-item
+                          list-group-item-action">
 
-               <strong>${item.type}</strong> :
-               ${item.title}
+                    <strong>
+                        ${item.type}
+                    </strong>
 
-            </a>
+                    :
+                    ${item.title}
+
+                </a>
+
             `;
-
 
                 });
 
-
             });
-
 
     });
 </script>

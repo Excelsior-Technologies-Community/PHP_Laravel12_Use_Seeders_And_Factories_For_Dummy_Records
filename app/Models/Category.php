@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
 {
-    use HasFactory; // Add this trait
+    use HasFactory;
 
     protected $fillable = [
         'name',
