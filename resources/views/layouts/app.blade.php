@@ -114,6 +114,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/dashboard">Dashboard</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-bold text-primary" href="{{ route('seeder.studio') }}"><i class="fa-solid fa-wand-magic-sparkles me-1"></i> Seeder Studio</a>
+                    </li>
                 </ul>
                 <div class="d-flex gap-2">
 

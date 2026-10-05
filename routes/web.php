@@ -4,6 +4,7 @@ use App\Models\Post;
 use App\Models\Category;
 use App\Models\User;
 use App\Models\Comment;
+use App\Http\Controllers\SeederStudioController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -422,3 +423,15 @@ Route::get('/test-data', function () {
             ]),
     ]);
 });
+
+/*
+|--------------------------------------------------------------------------
+| Seeder & Factory Studio Routes
+|--------------------------------------------------------------------------
+*/
+Route::get('/seeder-studio', [SeederStudioController::class, 'index'])->name('seeder.studio');
+Route::post('/seeder-studio/generate', [SeederStudioController::class, 'generateBatch'])->name('seeder.studio.generate');
+Route::post('/seeder-studio/preset', [SeederStudioController::class, 'applyPreset'])->name('seeder.studio.preset');
+Route::post('/seeder-studio/reset', [SeederStudioController::class, 'resetDatabase'])->name('seeder.studio.reset');
+Route::get('/seeder-studio/export', [SeederStudioController::class, 'exportDataset'])->name('seeder.studio.export');
+
